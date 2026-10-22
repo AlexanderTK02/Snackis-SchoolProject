@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Report post";
+}
+
+<h1>Report post</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form asp-action="Create" method="post" class="col-md-6">
+    <input type="hidden" name="postId" value="@ViewBag.PostId" />
+    <div class="mb-3">
+        <label class="form-label">Why is this post offensive?</label>
+        <textarea name="reason" class="form-control" rows="4" maxlength="500" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-danger">Send report</button>
+    <a asp-controller="Posts" asp-action="Details" asp-route-id="@ViewBag.PostId" class="btn btn-secondary">Cancel</a>
+</form>

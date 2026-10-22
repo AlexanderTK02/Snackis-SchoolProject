@@ -1,0 +1,127 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* ===== Snackis custom theme ===== */
+:root {
+    --snackis-primary: #2f6f5e;
+    --snackis-primary-dark: #245647;
+    --snackis-bg: #f4f7f6;
+}
+
+body {
+    background-color: var(--snackis-bg);
+}
+
+/* Links and headings */
+a {
+    color: var(--snackis-primary);
+}
+
+    a:hover {
+        color: var(--snackis-primary-dark);
+    }
+
+h1 {
+    font-size: 1.9rem;
+    margin-bottom: 1.25rem;
+    color: var(--snackis-primary-dark);
+}
+
+/* Navbar */
+.navbar {
+    border-bottom: 3px solid var(--snackis-primary);
+}
+
+.navbar-brand {
+    color: var(--snackis-primary) !important;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.navbar .nav-link:hover {
+    color: var(--snackis-primary) !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--snackis-primary);
+    border-color: var(--snackis-primary);
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: var(--snackis-primary-dark);
+        border-color: var(--snackis-primary-dark);
+    }
+
+.bg-primary {
+    background-color: var(--snackis-primary) !important;
+}
+
+/* Cards (posts, comments) */
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tables */
+.table {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+    .table thead th {
+        background-color: var(--snackis-primary);
+        color: #fff;
+        border: none;
+    }
+
+    .table-hover tbody tr:hover,
+    .table tbody tr:hover {
+        background-color: rgba(47, 111, 94, 0.08);
+    }
+
+/* Forms */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--snackis-primary);
+    box-shadow: 0 0 0 0.2rem rgba(47, 111, 94, 0.2);
+}
+
+/* Profile pictures */
+img.rounded {
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}

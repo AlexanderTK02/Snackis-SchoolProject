@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Snackis.Models.Report>
+
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<h1>Reported posts</h1>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">No reports.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Post</th>
+                <th>Reported by</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Posts" asp-action="Details" asp-route-id="@r.PostId">@r.Post?.Title</a></td>
+                    <td>@r.User?.UserName</td>
+                    <td>@r.Reason</td>
+                    <td>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>
+                        @if (r.IsReviewed)
+                        {
+                            <span class="badge bg-success">Reviewed</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">New</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            @if (!r.IsReviewed)
+                            {
+                                <form asp-action="MarkReviewed" asp-route-id="@r.Id" method="post">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">Mark reviewed</button>
+                                </form>
+                            }
+                            <a asp-controller="Posts" asp-action="Delete" asp-route-id="@r.PostId"
+                               class="btn btn-sm btn-outline-danger">Delete post</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,47 @@
+﻿@model Snackis.Models.ConversationViewModel
+
+@{
+    ViewData["Title"] = "Conversation with " + Model.OtherUserName;
+}
+
+<a asp-action="Index" class="btn btn-secondary mb-3">← All conversations</a>
+
+<h2>@Model.OtherUserName</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div id="chat" class="border rounded p-3 mb-3" style="max-height:60vh; overflow-y:auto;">
+    @if (!Model.Messages.Any())
+    {
+        <p class="text-muted mb-0">No messages yet. Say hello!</p>
+    }
+
+    @foreach (var m in Model.Messages)
+    {
+        var mine = m.SenderId != Model.OtherUserId;
+        <div class="d-flex @(mine ? "justify-content-end" : "justify-content-start") mb-2">
+            <div class="p-2 rounded @(mine ? "bg-primary text-white" : "bg-light border")" style="max-width:75%;">
+                <div style="white-space: pre-wrap;">@m.Text</div>
+                <small class="@(mine ? "text-white-50" : "text-muted")">@m.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small>
+            </div>
+        </div>
+    }
+</div>
+
+<form asp-action="Send" asp-route-id="@Model.OtherUserId" method="post">
+    <div class="input-group">
+        <textarea name="text" class="form-control" rows="2" maxlength="2000"
+                  placeholder="Write a message..." required></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        var chat = document.getElementById('chat');
+        chat.scrollTop = chat.scrollHeight;
+    </script>
+}

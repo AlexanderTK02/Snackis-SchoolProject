@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Snackis.Models.ConversationSummary>
+
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<h1>Messages</h1>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Start" method="post" class="row g-2 mb-4 col-md-8">
+    <div class="col">
+        <input type="text" name="username" class="form-control"
+               placeholder="Start a conversation with (username)" required />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Start</button>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">No conversations yet.</p>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var c in Model)
+        {
+            <a asp-action="Conversation" asp-route-id="@c.OtherUserId"
+               class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                    <h6 class="mb-1 @(c.UnreadCount > 0 ? "fw-bold" : "")">
+                        @c.OtherUserName
+                        @if (c.UnreadCount > 0)
+                        {
+                            <span class="badge bg-danger">@c.UnreadCount</span>
+                        }
+                    </h6>
+                    <small class="text-muted">@c.LastDate.ToString("yyyy-MM-dd HH:mm")</small>
+                </div>
+                <p class="mb-0 text-muted text-truncate">@(c.LastFromMe ? "You: " : "")@c.LastText</p>
+            </a>
+        }
+    </div>
+}
