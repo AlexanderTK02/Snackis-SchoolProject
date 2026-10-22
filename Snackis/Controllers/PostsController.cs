@@ -87,6 +87,7 @@ public class PostsController : Controller
     }
 
     // POST: Posts/Edit/5
+    // AI Involved on this method, needed some help.
     [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]

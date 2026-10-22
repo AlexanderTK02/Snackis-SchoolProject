@@ -41,6 +41,8 @@ public class ProfileController : Controller
     }
 
     // GET: Profile/Image/{userId} (Anyone can view pictures)
+    // AI helped me a bit with figuring this one out, ImageData is the code behind a picture and ImageContentType is the type of picture it is
+    // This helps with reconstructing the picture once we need it. All profile pictures are in the Database.
     [AllowAnonymous]
     public async Task<IActionResult> Image(string id)
     {
