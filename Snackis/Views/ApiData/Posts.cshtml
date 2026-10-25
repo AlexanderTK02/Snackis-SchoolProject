@@ -1,0 +1,40 @@
+﻿@model List<Snackis.ApiModels.ApiPost>
+
+@{
+    ViewData["Title"] = "Posts (API)";
+}
+
+<h1>Posts</h1>
+
+@if (Model == null)
+{
+    <div class="alert alert-danger">The API could not be reached.</div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Title</td>
+                    <td>@p.Author</td>
+                    <td>@p.CategoryName</td>
+                    <td>@p.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@p.Content</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -48,6 +48,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ApiDemo" asp-action="Index">API demo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ApiData" asp-action="Categories">API: Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ApiData" asp-action="Posts">API: Posts</a>
+                        </li>
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             var unread = await MessageService.CountUnreadAsync(UserManager.GetUserId(User)!);

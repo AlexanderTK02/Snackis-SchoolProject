@@ -41,6 +41,11 @@ public class Program
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+        builder.Services.AddHttpClient<IForumApiClient, ForumApiClient>(client =>
+        {
+            client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]!);
+        });
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

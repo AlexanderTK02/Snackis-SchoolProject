@@ -6,4 +6,5 @@ public interface IForumService
 {
     Task<List<CategoryDto>> GetCategoriesAsync();
     Task<List<PostDto>?> GetPostsForCategoryAsync(int categoryId);
+    Task<List<PostDto>> GetAllPostsAsync();
 }

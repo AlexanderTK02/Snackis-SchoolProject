@@ -41,4 +41,19 @@ public class ForumService : IForumService
             CategoryName = p.Category?.Name ?? string.Empty
         }).ToList();
     }
+
+    public async Task<List<PostDto>> GetAllPostsAsync()
+    {
+        var posts = await _repository.GetAllPostsAsync();
+        return posts.Select(p => new PostDto
+        {
+            Id = p.Id,
+            Title = p.Title,
+            Content = p.Content,
+            CreatedAt = p.CreatedAt,
+            Author = p.User?.UserName ?? "Unknown",
+            CategoryId = p.CategoryId,
+            CategoryName = p.Category?.Name ?? string.Empty
+        }).ToList();
+    }
 }

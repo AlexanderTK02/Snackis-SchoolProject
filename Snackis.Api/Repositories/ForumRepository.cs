@@ -39,4 +39,14 @@ public class ForumRepository : IForumRepository
             .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
     }
+
+    public async Task<List<Post>> GetAllPostsAsync()
+    {
+        return await _context.Posts
+            .AsNoTracking()
+            .Include(p => p.Category)
+            .Include(p => p.User)
+            .OrderByDescending(p => p.CreatedAt)
+            .ToListAsync();
+    }
 }

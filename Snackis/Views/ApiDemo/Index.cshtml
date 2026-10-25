@@ -1,0 +1,83 @@
+﻿@model Snackis.ApiModels.ApiDemoViewModel
+
+@{
+	ViewData["Title"] = "API Demo";
+}
+
+<h1>API Demo</h1>
+
+<p class="text-muted">
+	This page gets its data from my separate API Project
+</p>
+
+@if (Model.Categories == null)
+{
+	<div class="alert alert-danger">The API could not be reached.</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <h5>Categories</h5>
+            <div class="list-group">
+                @foreach (var main in Model.Categories.Where(c => c.ParentCategoryId == null))
+                {
+                    <a asp-action="Index" asp-route-categoryId="@main.Id"
+                       class="list-group-item list-group-item-action @(Model.SelectedCategoryId == main.Id ? "active" : "")">
+                        @main.Name
+                    </a>
+                    @foreach (var sub in Model.Categories.Where(c => c.ParentCategoryId == main.Id))
+                    {
+                        <a asp-action="Index" asp-route-categoryId="@sub.Id"
+                           class="list-group-item list-group-item-action ps-5 @(Model.SelectedCategoryId == sub.Id ? "active" : "")">
+                            @sub.Name
+                        </a>
+                    }
+                }
+            </div>
+            <p class="small text-muted mt-3">
+                Endpoint: <code>GET api/categories</code>
+            </p>
+        </div>
+
+        <div class="col-md-8">
+            <h5>Posts</h5>
+
+            @if (Model.SelectedCategoryId == null)
+            {
+                <p class="text-muted">Pick a category to load its posts from the API.</p>
+            }
+            else if (Model.Posts == null)
+            {
+                <div class="alert alert-warning">The posts could not be loaded. The category may not exist, or the API is unavailable.</div>
+            }
+            else if (!Model.Posts.Any())
+            {
+                <p class="text-muted">No posts in this category.</p>
+            }
+            else
+            {
+                foreach (var post in Model.Posts)
+                {
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h6 class="card-title">@post.Title</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                @post.CategoryName · by @post.Author · @post.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                            </h6>
+                            <p class="card-text">@post.Content</p>
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (Model.SelectedCategoryId != null)
+            {
+                <p class="small text-muted mt-3">
+                    Endpoint: <code>GET api/categories/@Model.SelectedCategoryId/posts</code>
+                    (<a href="@(Model.ApiBaseUrl)api/categories/@(Model.SelectedCategoryId)/posts" target="_blank">see the raw JSON</a>)
+                </p>
+            }
+        </div>
+    </div>
+}
